@@ -2,13 +2,13 @@ const express = require('express');
 const UserRoute = new express.Router();
 const UserModel = require('../../model/user/user')
 
-UserRoute.post('/register', (req, res) => {
+UserRoute.post('/register', async (req, res) => {
     try {
         const user = new UserModel({ ...req.body })
         if (!user) {
             throw new Error("User Not Registered")
         }
-        const saved = user.save();
+        const saved = await user.save();
         if (!saved) {
             throw new Error("User Not Registered")
         }
